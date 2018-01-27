@@ -1,6 +1,14 @@
 @import 'variables'; // Need to override the default theme colors
 @import '../node_modules/@material/theme/mdc-theme';
 
+html,
+body {
+  height: 100vh;
+  width: 100vw;
+}
+
 body {
   background-color: $mdc-theme-background;
+  padding: 0;
+  margin: 0;
 }
