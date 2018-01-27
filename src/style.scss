@@ -1,3 +1,6 @@
-.test {
-  color: tomato;
+@import 'variables'; // Need to override the default theme colors
+@import '../node_modules/@material/theme/mdc-theme';
+
+body {
+  background-color: $mdc-theme-background;
 }
