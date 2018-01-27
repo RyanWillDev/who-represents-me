@@ -1,11 +1,18 @@
 import { h, render } from 'preact';
 
-import App from './app';
+declare const require: any;
 
-render(<App />, document.getElementById('app'));
+let root: Element;
+
+function renderApp() {
+  let App = require('./app').default;
+  root = render(<App />, document.getElementById('app'), root);
+}
+
+renderApp();
 
 // Enable HMR
 declare const module: any;
 if (module.hot) {
-  module.hot.accept('./app');
+  module.hot.accept('./app', renderApp);
 }
