@@ -1,0 +1,39 @@
+@import '../../variables';
+
+input {
+  border: 3px solid lighten($gray-black, 40%);
+  border-radius: 5px;
+  font-size: 16px;
+  height: 25px;
+  padding-left: 4px;
+
+  &::placeholder {
+    color: lighten($gray-black, 40%);
+  }
+
+  &:invalid {
+    border-color: $theme-red;
+
+    & + .error-indicator {
+      display: block;
+    }
+  }
+
+  &:focus {
+    border-color: $theme-blue;
+    caret-color: $theme-blue;
+
+    & + .error-indicator {
+      display: none;
+    }
+  }
+}
+
+.error-indicator {
+  color: lighten($theme-red, 5%);
+  display: none;
+
+  &.hidden {
+    display: none !important;
+  }
+}
