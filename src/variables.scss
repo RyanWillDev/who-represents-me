@@ -1,6 +1,10 @@
-// Override Material Design Colors
-$mdc-theme-primary: #62c5d5;
-$mdc-theme-secondary: #ea4830;
-$mdc-theme-background: #fdfdfd;
-
+// Colors
 $gray-black: #515151;
+$theme-red: #ea4830;
+$theme-blue: #62c5d5;
+$theme-off-white: #fdfdfd;
+
+// Override Material Design Colors
+$mdc-theme-primary: $theme-blue;
+$mdc-theme-secondary: $theme-red;
+$mdc-theme-background: $theme-off-white;
