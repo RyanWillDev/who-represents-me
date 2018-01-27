@@ -2,12 +2,13 @@
 
 header {
   box-shadow: 0 2px 4px 2px darken($mdc-theme-background, 5%);
-  position: absolute;
+  height: 50px;
+  padding-top: 20px;
   text-align: center;
-  top: 0;
   width: 100vw;
 
   h1 {
     color: $gray-black;
+    margin: 0;
   }
 }
