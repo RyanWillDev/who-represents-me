@@ -1,6 +1,12 @@
 import { h } from 'preact';
-import './style.scss';
 
-const App = () => <h1 className="test">Hello World</h1>;
+import './style.scss';
+import { Header } from './components';
+
+const App = () => (
+  <div style={{ width: '100vw', height: '100vh' }}>
+    <Header />
+  </div>
+);
 
 export default App;
