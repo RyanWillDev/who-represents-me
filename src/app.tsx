@@ -1,5 +1,5 @@
 import { h } from 'preact';
-import './style.css';
+import './style.scss';
 
 const App = () => <h1 className="test">Hello World</h1>;
 

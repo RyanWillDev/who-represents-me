@@ -1,8 +1,7 @@
 const path = require('path'),
-      HtmlWebpackPlugin = require('html-webpack-plugin'),
-      CleanWebpackPlugin = require('clean-webpack-plugin'),
-      webpack = require('webpack');
-
+  HtmlWebpackPlugin = require('html-webpack-plugin'),
+  CleanWebpackPlugin = require('clean-webpack-plugin'),
+  webpack = require('webpack');
 
 module.exports = {
   entry: './src/index.tsx',
@@ -12,7 +11,7 @@ module.exports = {
     path: path.resolve(__dirname, '../dist')
   },
   resolve: {
-    extensions: [ '.ts', '.tsx', '.js' ]
+    extensions: ['.ts', '.tsx', '.js']
   },
   devServer: {
     contentBase: path.resolve(__dirname, '../dist'),
@@ -26,16 +25,17 @@ module.exports = {
         exclude: /node_modules/
       },
       {
+        test: /\.scss$/,
+        use: ['style-loader', 'css-loader', 'sass-loader']
+      },
+      {
         test: /\.css$/,
-        use: [
-          'style-loader',
-          'css-loader'
-        ]
+        use: ['style-loader', 'css-loader']
       }
     ]
   },
   plugins: [
-    new CleanWebpackPlugin([ 'dist' ], { root: path.resolve(__dirname, '../') }),
+    new CleanWebpackPlugin(['dist'], { root: path.resolve(__dirname, '../') }),
     new HtmlWebpackPlugin({
       title: 'Who Represents Me',
       template: path.resolve(__dirname, '../index.html')
