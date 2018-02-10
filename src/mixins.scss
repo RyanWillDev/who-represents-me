@@ -1,0 +1,5 @@
+@mixin button-focus-styles($color) {
+  &:focus {
+    background-color: darken($color, 10%);
+  }
+}

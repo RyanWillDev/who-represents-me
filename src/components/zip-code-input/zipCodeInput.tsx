@@ -27,22 +27,24 @@ export class ZipCodeInput extends Component<{}, State> {
 
     return (
       <div>
-        <h2>Enter Zip Code to see representatives</h2>
-        <input
-          type="text"
-          value={this.state.zipCode}
-          onChange={this.updateZip}
-          placeholder="Five digit Zip Code"
-          pattern="[0-9]{5}"
-          minLength={5}
-          maxLength={5}
-          required
-        />
-        <button>Submit</button>
-        <span class={errorClasses}>
-          Something looks wrong with the Zip Code you entered! Please enter a 5
-          digit Zip Code.
-        </span>
+        <h2 class="zip-header">Enter Zip Code to see Representatives</h2>
+        <div class="zip-container">
+          <input
+            type="text"
+            value={this.state.zipCode}
+            onChange={this.updateZip}
+            placeholder="Five digit Zip Code"
+            pattern="[0-9]{5}"
+            minLength={5}
+            maxLength={5}
+            required
+          />
+          <button class="submit">Submit</button>
+          <span class={errorClasses}>
+            Something looks wrong with the Zip Code you entered! Please enter a
+            5 digit Zip Code.
+          </span>
+        </div>
       </div>
     );
   }

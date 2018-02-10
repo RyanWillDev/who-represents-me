@@ -1,4 +1,16 @@
 @import '../../variables';
+@import '../../mixins';
+
+.zip-header {
+  text-align: center;
+  margin: 32px 0 24px;
+}
+
+.zip-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
 
 input {
   border: 3px solid lighten($gray-black, 40%);
@@ -14,8 +26,14 @@ input {
   &:invalid {
     border-color: $theme-red;
 
-    & + .error-indicator {
+    & ~ span {
       display: block;
+    }
+  }
+
+  &:valid {
+    & ~ span {
+      display: none;
     }
   }
 
@@ -23,7 +41,7 @@ input {
     border-color: $theme-blue;
     caret-color: $theme-blue;
 
-    & + .error-indicator {
+    & ~ span.error-indicator {
       display: none;
     }
   }
@@ -31,9 +49,26 @@ input {
 
 .error-indicator {
   color: lighten($theme-red, 5%);
-  display: none;
+  margin: 16px auto 0;
+  text-align: center;
 
   &.hidden {
-    display: none !important;
+    display: none;
+  }
+}
+
+.submit {
+  @include button-focus-styles($theme-blue);
+
+  background-color: $theme-blue;
+  border-radius: 24px;
+  color: $theme-off-white;
+  font-size: 1.2em;
+  height: 36px;
+  margin-left: 16px;
+  width: 148px;
+
+  &:active {
+    background-color: #64cbdb;
   }
 }
