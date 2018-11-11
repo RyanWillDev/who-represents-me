@@ -1,0 +1,11 @@
+.btn-blue {
+  @apply py-2 px-4 border-2 rounded-lg border-blue text-blue capitalize font-bold bg-transparent;
+}
+
+.btn-blue:hover {
+  @apply text-white bg-blue;
+}
+
+.btn-blue:active {
+  @apply bg-blue-dark;
+}

@@ -1,6 +1,12 @@
-/* This file is for your main application css. */
+@import './base.css';
 
-@import './phoenix.css';
+/* Pages */
+@import './home.css';
+
+/* Components */
+@import './components/buttons.css';
+
+/* This file is for your main application css. */
 
 /**
  * This injects Tailwind's base styles, which is a combination of

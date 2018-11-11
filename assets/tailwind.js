@@ -46,13 +46,13 @@ let colors = {
   transparent: 'transparent',
 
   black: '#22292f',
-  'grey-darkest': '#3d4852',
-  'grey-darker': '#606f7b',
-  'grey-dark': '#8795a1',
-  grey: '#b8c2cc',
-  'grey-light': '#dae1e7',
-  'grey-lighter': '#f1f5f8',
-  'grey-lightest': '#f8fafc',
+  'gray-darkest': '#3d4852',
+  'gray-darker': '#606f7b',
+  'gray-dark': '#8795a1',
+  gray: '#b8c2cc',
+  'gray-light': '#dae1e7',
+  'gray-lighter': '#f1f5f8',
+  'gray-lightest': '#f8fafc',
   white: '#ffffff',
 
   'red-darkest': '#3b0d0c',
@@ -406,7 +406,7 @@ module.exports = {
   |
   */
 
-  borderColors: global.Object.assign({ default: colors['grey-light'] }, colors),
+  borderColors: global.Object.assign({ default: colors['gray-light'] }, colors),
 
   /*
   |-----------------------------------------------------------------------------
@@ -487,7 +487,7 @@ module.exports = {
   /*
   |-----------------------------------------------------------------------------
   | Height                                  https://tailwindcss.com/docs/height
-  |-----------------------------------------------------------------------------
+  https://placem.at/people?w=500|-----------------------------------------------------------------------------
   |
   | Here is where you define your height utility sizes. These can be
   | percentage based, pixels, rems, or any other units. By default
@@ -517,6 +517,11 @@ module.exports = {
     '48': '12rem',
     '64': '16rem',
     full: '100%',
+    'half-screen': '50vh',
+    'third-screen': '33vh',
+    '1/2': '50%',
+    '1/3': '33%',
+    '1/4': '25%',
     screen: '100vh',
   },
 
@@ -604,6 +609,11 @@ module.exports = {
   maxHeight: {
     full: '100%',
     screen: '100vh',
+    'half-screen': '50vh',
+    'third-screen': '33vh',
+    '1/2': '50%',
+    '1/3': '33%',
+    '1/4': '25%',
   },
 
   /*
@@ -834,7 +844,7 @@ module.exports = {
   modules: {
     appearance: ['responsive'],
     backgroundAttachment: ['responsive'],
-    backgroundColors: ['responsive', 'hover', 'focus'],
+    backgroundColors: ['responsive', 'hover', 'focus', 'active'],
     backgroundPosition: ['responsive'],
     backgroundRepeat: ['responsive'],
     backgroundSize: ['responsive'],
