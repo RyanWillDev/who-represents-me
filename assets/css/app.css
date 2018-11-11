@@ -5,9 +5,8 @@
 
 /* Components */
 @import './components/buttons.css';
-
+@import './components/inputs.css';
 /* This file is for your main application css. */
-
 /**
  * This injects Tailwind's base styles, which is a combination of
  * Normalize.css and some additional base styles.
