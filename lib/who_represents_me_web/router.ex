@@ -17,6 +17,8 @@ defmodule WRMWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+
+    get "/reps", SearchController, :search
   end
 
   # Other scopes may use custom stacks.
