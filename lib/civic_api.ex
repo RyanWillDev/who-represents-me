@@ -7,22 +7,41 @@ defmodule CivicApi do
 
   plug Tesla.Middleware.JSON
 
+  @rep_levels [
+    "administrativeArea1",
+    "administrativeArea2",
+    "country",
+    "international",
+    "locality",
+    "regional",
+    "special",
+    "subLocality1",
+    "subLocality2"
+  ]
+
   def representatives(address) do
-    get("/representatives",
-      query: [
-        address: address,
-        levels: [
-          "administrativeArea1",
-          "administrativeArea2",
-          "country",
-          "international",
-          "locality",
-          "regional",
-          "special",
-          "subLocality1",
-          "subLocality2"
+    {:ok, %Tesla.Env{body: body}} =
+      get("/representatives",
+        query: [
+          address: address,
+          levels: @rep_levels
         ]
-      ]
-    )
+      )
+
+    offices =
+      body["offices"]
+      |> Enum.reduce(%{}, fn office, acc ->
+        Enum.reduce(office["officialIndices"], %{}, fn index, index_acc ->
+          Map.put(index_acc, to_string(index), Map.drop(office, ["officialIndices"]))
+        end)
+        |> Map.merge(acc)
+      end)
+
+    body["officials"]
+    |> Enum.with_index()
+    |> Enum.map(fn {official, index} ->
+      official
+      |> Map.merge(%{"office" => offices[to_string(index)]})
+    end)
   end
 end
