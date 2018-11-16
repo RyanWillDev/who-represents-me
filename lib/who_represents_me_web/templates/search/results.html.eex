@@ -1,8 +1,14 @@
 <section class="pt-24 px-16">
-  <h1>Representatives for <%= @address %></h1>
-  <ul>
+  <h1 class="mb-16">Representatives for <%= @address %></h1>
+  <ul class="text-black mb-16">
     <%= for rep <- @reps do %>
-      <li><%= rep["name"] %> <%= rep["office"]["name"] %></li>
+      <li class="mb-8 bg-gray py-8 px-4 rounded flex">
+        <%= if rep["photoUrl"] != ""  do %>
+          <img class="h-32 w-24 rounded" src="<%= rep["photoUrl"] %>" alt="">
+        <% end %>
+        <span><%= rep["name"] %></span>
+        <span><%= rep["office"]["name"] %></span>
+      </li>
     <% end %>
   </ul>
 </section>
