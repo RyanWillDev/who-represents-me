@@ -1,6 +1,7 @@
 defmodule CivicApi do
   use Tesla
   plug Tesla.Middleware.BaseUrl, "https://www.googleapis.com/civicinfo/v2"
+  plug WRM.Tesla.FormatResponse
 
   plug Tesla.Middleware.Query,
     key: Application.get_env(:who_represents_me, :civic_api, :api_key) |> Keyword.get(:api_key)
@@ -20,7 +21,7 @@ defmodule CivicApi do
   ]
 
   def representatives(address) do
-    {:ok, %Tesla.Env{body: body}} =
+    response =
       get("/representatives",
         query: [
           address: address,
@@ -28,20 +29,27 @@ defmodule CivicApi do
         ]
       )
 
-    offices =
-      body["offices"]
-      |> Enum.reduce(%{}, fn office, acc ->
-        Enum.reduce(office["officialIndices"], %{}, fn index, index_acc ->
-          Map.put(index_acc, to_string(index), Map.drop(office, ["officialIndices"]))
-        end)
-        |> Map.merge(acc)
-      end)
+    case response do
+      {:ok, body} ->
+        offices =
+          body["offices"]
+          |> Enum.reduce(%{}, fn office, acc ->
+            Enum.reduce(office["officialIndices"], %{}, fn index, index_acc ->
+              Map.put(index_acc, to_string(index), Map.drop(office, ["officialIndices"]))
+            end)
+            |> Map.merge(acc)
+          end)
 
-    body["officials"]
-    |> Enum.with_index()
-    |> Enum.map(fn {official, index} ->
-      official
-      |> Map.merge(%{"office" => offices[to_string(index)]})
-    end)
+        {:ok,
+         body["officials"]
+         |> Enum.with_index()
+         |> Enum.map(fn {official, index} ->
+           official
+           |> Map.merge(%{"office" => offices[to_string(index)]})
+         end)}
+
+      error ->
+        error
+    end
   end
 end
