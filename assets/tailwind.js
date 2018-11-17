@@ -580,6 +580,7 @@ module.exports = {
   */
 
   maxWidth: {
+    icon: '3rem',
     xs: '20rem',
     sm: '30rem',
     md: '40rem',
@@ -607,6 +608,7 @@ module.exports = {
   */
 
   maxHeight: {
+    icon: '3rem',
     full: '100%',
     screen: '100vh',
     'half-screen': '50vh',

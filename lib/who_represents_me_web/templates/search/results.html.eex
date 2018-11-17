@@ -6,9 +6,30 @@
         <%= if rep["photoUrl"] != ""  do %>
           <img class="h-32 w-24 rounded" src="<%= rep["photoUrl"] %>" alt="">
         <% end %>
-        <span><%= rep["name"] %></span>
-        <span><%= rep["office"]["name"] %></span>
+        <div class="ml-4 flex-col pt-1">
+          <div class="h-1/2">
+            <span class="block font-bold mb-2"><%= rep["name"] %></span>
+            <span class="text-sm font-semibold text-gray-darkest"><%= rep["office"]["name"] %></span>
+          </div>
+
+          <div class="h-1/2 self-end flex items-end">
+            <%=
+              case rep["party"] do
+                "Republican" ->
+                  WRMWeb.ComponentsView.render("republican_icon.html")
+                "Democratic" ->
+                  WRMWeb.ComponentsView.render("democrat_icon.html")
+                _ ->
+                  "Party Affiliation Unknown"
+              end
+            %>
+          </div>
+        </div>
       </li>
     <% end %>
   </ul>
+
+  <footer class="mb-4 py-8">
+    <span class="text-xs"><sup>*</sup>Political affiliation icons made by Freepik from www.flaticon.com</span>
+  </footer>
 </section>
