@@ -31,22 +31,7 @@ defmodule CivicApi do
 
     case response do
       {:ok, body} ->
-        offices =
-          body["offices"]
-          |> Enum.reduce(%{}, fn office, acc ->
-            Enum.reduce(office["officialIndices"], %{}, fn index, index_acc ->
-              Map.put(index_acc, to_string(index), Map.drop(office, ["officialIndices"]))
-            end)
-            |> Map.merge(acc)
-          end)
-
-        {:ok,
-         body["officials"]
-         |> Enum.with_index()
-         |> Enum.map(fn {official, index} ->
-           official
-           |> Map.merge(%{"office" => offices[to_string(index)]})
-         end)}
+        {:ok, CivicApi.Formatter.representative_response(body)}
 
       error ->
         error
