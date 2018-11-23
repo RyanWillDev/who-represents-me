@@ -7,7 +7,7 @@
     <title>Who Represents Me - Discover your political representatives</title>
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
   </head>
-  <body class="bg-black font-sans font-normal text-gray-lightest">
+  <body class="bg-black font-sans font-normal text-gray-lightest font-semibold">
     <header class="py-4 bg-transparent absolute z-10">
       <section class="pl-4">
         <nav role="navigation">

@@ -55,6 +55,7 @@ let colors = {
   'gray-lightest': '#f8fafc',
   white: '#ffffff',
 
+  'republican-red': '#D80027',
   'red-darkest': '#3b0d0c',
   'red-darker': '#621b18',
   'red-dark': '#cc1f1a',
@@ -95,6 +96,7 @@ let colors = {
   'teal-lighter': '#a0f0ed',
   'teal-lightest': '#e8fffe',
 
+  'democrat-blue': '#006DF0',
   'blue-darkest': '#12283a',
   'blue-darker': '#1c3d5a',
   'blue-dark': '#2779bd',
@@ -453,6 +455,7 @@ module.exports = {
   */
 
   width: {
+    icon: '3rem',
     auto: 'auto',
     px: '1px',
     '1': '0.25rem',
@@ -500,6 +503,7 @@ module.exports = {
   */
 
   height: {
+    icon: '3rem',
     auto: 'auto',
     px: '1px',
     '1': '0.25rem',
@@ -527,7 +531,7 @@ module.exports = {
 
   /*
   |-----------------------------------------------------------------------------
-  | Minimum width                        https://tailwindcss.com/docs/min-width
+  | Minimum width                        https://tailwindcss.com/docs/min-width;
   |-----------------------------------------------------------------------------
   |
   | Here is where you define your minimum width utility sizes. These can
@@ -580,6 +584,7 @@ module.exports = {
   */
 
   maxWidth: {
+    '1/3': '33%',
     xs: '20rem',
     sm: '30rem',
     md: '40rem',

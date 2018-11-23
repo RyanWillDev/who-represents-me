@@ -1,8 +1,62 @@
-<section class="pt-24 px-16">
-  <h1>Representatives for <%= @address %></h1>
-  <ul>
+<section class="pt-24 px-4 sm:px-16">
+  <h1 class="mb-16 text-base w-full">Representatives for <%= @address %></h1>
+  <ul class="text-black mb-16">
     <%= for rep <- @reps do %>
-      <li><%= rep["name"] %> <%= rep["office"]["name"] %></li>
+      <li class="mb-8 bg-white py-8 px-4 rounded flex flex-wrap">
+        <div class="mb-4 flex w-full md:w-1/3 md:mb-0 md:mr-3">
+          <%= if rep["photoUrl"] != "" and rep["photoUrl"] != nil  do %>
+            <img class="h-32 w-24 rounded" src="<%= rep["photoUrl"] %>" alt="">
+            <% else %>
+            <div class="h-32 w-24 rounded">
+              <%= WRMWeb.ComponentsView.render("rep_placeholder.html") %>
+            </div>
+          <% end %>
+          <div class="ml-4 flex-col pt-1">
+            <div class="h-1/2">
+              <span class="block font-bold mb-2"><%= rep["name"] %></span>
+              <span class="text-sm text-gray-darkest"><%= rep["office"]["name"] %></span>
+            </div>
+
+            <div class="h-1/2 self-end flex items-end text-sm text-gray-darkest">
+              <%=
+                case rep["party"] do
+                  "Republican" ->
+                    WRMWeb.ComponentsView.render("republican_icon.html")
+                  "Democratic" ->
+                    WRMWeb.ComponentsView.render("democrat_icon.html")
+                  _ ->
+                    "Party Affiliation Unknown"
+                end
+              %>
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-1 text-center w-full md:text-left md:w-1/3">
+          <h2 class="text-sm mb-2">Contact Information</h2>
+          <ul class="text-sm text-gray-darkest ">
+            <%= unless rep["phones"] == nil do %>
+              <%= for phone <- rep["phones"] do %>
+                <li class="mb-2">
+                  <a href="tel:<%=  phone %>" class="<%= link_class(rep) %> hover:underline"><%= phone %></a>
+                </li>
+              <% end %>
+            <% end %>
+
+            <%= unless rep["emails"] == nil do %>
+              <%= for email <- rep["emails"] do %>
+                <li class="mb-2">
+                 <a href="mailto:<%= email %>" class="<%= link_class(rep) %> hover:underline"><%= email %></a>
+                </li>
+              <% end %>
+            <% end %>
+          </ul>
+        </div>
+      </li>
     <% end %>
   </ul>
+
+  <footer class="mb-4 py-8">
+    <span class="text-xs"><sup>*</sup>Political affiliation icons made by Freepik from www.flaticon.com</span>
+  </footer>
 </section>

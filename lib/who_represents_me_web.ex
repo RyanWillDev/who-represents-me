@@ -31,6 +31,7 @@ defmodule WRMWeb do
     quote do
       use Phoenix.View,
         root: "lib/who_represents_me_web/templates",
+        pattern: "**/*",
         namespace: WRMWeb
 
       # Import convenience functions from controllers

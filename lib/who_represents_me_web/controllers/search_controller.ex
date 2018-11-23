@@ -4,6 +4,9 @@ defmodule WRMWeb.SearchController do
   def search(conn, %{"address" => address}) do
     case CivicApi.representatives(address) do
       {:ok, reps} ->
+        require IEx
+        IEx.pry()
+        # reps = Enum.reverse(reps)
         render(conn, "results.html", address: address, reps: reps)
 
       {:error, _} ->
