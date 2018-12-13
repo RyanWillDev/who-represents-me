@@ -13,9 +13,21 @@
   <!-- <h1><%= gettext "Welcome to %{name}!", name: "Phoenix" %></h1> -->
 </section>
 
-<section class="pt-10 md:pt-24 px-4 sm:px-8">
-  <article class="text-center">
-    <%= form_for @conn, "/reps", [method: :get], fn f -> %> <%= text_input f, :address, placeholder: "Enter address or zip code", class: "w-full sm:w-2/3 md:w-1/3 mb-4 sm:mr-8" %>
-    <%= submit "find your reps", class: "btn-blue" %> <% end %>
+<section class="pt-10 md:pt-24 px-4 sm:px-8 w-full ">
+  <article class="flex justify-center">
+    <%= form_for @conn, "/reps", [method: :get, class: "max-w-md md:w-2/3"], fn f -> %>
+      <%= text_input f, :address, placeholder: "Street Address", class: "w-full mb-4", required: true %>
+
+      <div class="flex flex-wrap md:flex-no-wrap justify-between">
+        <%= text_input f, :state, placeholder: "State", class: "w-full mb-4 md:w-1/3 md:mr-3", required: true %>
+        <%= number_input f, :zip, placeholder: "Zip Code", class: "w-full mb-4 md:w-1/3", required: true %>
+
+        <div class="w-full md:w-1/3">
+          <div class="flex w-full justify-center md:justify-end">
+            <%= submit "find your reps", class: "btn-blue" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
   </article>
 </section>

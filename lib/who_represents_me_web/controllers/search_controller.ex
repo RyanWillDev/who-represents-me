@@ -1,7 +1,9 @@
 defmodule WRMWeb.SearchController do
   use WRMWeb, :controller
 
-  def search(conn, %{"address" => address}) do
+  def search(conn, %{"address" => address, "state" => state, "zip" => zip}) do
+    address = [address, state, zip] |> Enum.join(" ")
+
     case CivicApi.representatives(address) do
       {:ok, reps} ->
         render(conn, "results.html", address: address, reps: reps)
