@@ -13,10 +13,16 @@ defmodule CongressApi.Members do
        ]
 
   def house_members_by_term(term) do
-    get("/" <> Integer.to_string(term) <> "/house/members.json")
+    {:ok, %{"results" => [%{"members" => members}]}} =
+      get("/" <> Integer.to_string(term) <> "/house/members.json")
+
+    {:ok, members |> Enum.filter(&(&1["in_office"] == true))}
   end
 
   def senators_by_term(term) do
-    get("/" <> Integer.to_string(term) <> "/senate/members.json")
+    {:ok, %{"results" => [%{"members" => senators}]}} =
+      get("/" <> Integer.to_string(term) <> "/senate/members.json")
+
+    {:ok, senators |> Enum.filter(&(&1["in_office"] == true))}
   end
 end
