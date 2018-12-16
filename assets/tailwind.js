@@ -456,6 +456,7 @@ module.exports = {
 
   width: {
     icon: '3rem',
+    'icon-small': '1.5rem',
     auto: 'auto',
     px: '1px',
     '1': '0.25rem',
@@ -504,6 +505,7 @@ module.exports = {
 
   height: {
     icon: '3rem',
+    'icon-small': '1.5rem',
     auto: 'auto',
     px: '1px',
     '1': '0.25rem',
