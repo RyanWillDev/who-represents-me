@@ -3,9 +3,10 @@
     class="flex flex-col justify-center bg-black opacity-75 w-full h-full"
   >
     <!-- TODO: RW - Fix opacity for h1 -->
-    <h1 class="w-full text-center capitalize text-5xl">
-      Find your representatives?
+    <h1 class="w-full text-center capitalize mb-4 md:text-5xl">
+      Who Represents You?
     </h1>
+    <h2 class="w-full text-center">Find your representatives</h2>
   </article>
   <figcaption class="absolute pin-b pb-4 w-full text-center text-xs opacity-50">
     Photo by Louis Velazquez on Unsplash
