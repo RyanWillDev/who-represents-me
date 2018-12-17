@@ -2,7 +2,7 @@ defmodule WRMWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :who_represents_me
 
   socket "/socket", WRMWeb.UserSocket,
-    websocket: true,
+    websocket: [timeout: 45_000],
     longpoll: false
 
   # Serve at "/" the static files from "priv/static" directory.
