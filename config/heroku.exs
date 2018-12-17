@@ -21,7 +21,7 @@ config :logger, level: :info
 
 # Configure your database
 config :who_represents_me, WRM.Repo,
-  url: System.get_env("DATABASE_URL")
+  url: System.get_env("DATABASE_URL"),
   pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
 
 # ## SSL Support
