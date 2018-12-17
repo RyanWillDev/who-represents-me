@@ -73,3 +73,6 @@ config :who_represents_me, WRM.Repo,
   database: "who_represents_me_dev",
   hostname: "localhost",
   pool_size: 10
+
+import_config "civic_api.secret.exs"
+import_config "congress_api.secret.exs"
