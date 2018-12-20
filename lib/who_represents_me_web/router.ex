@@ -19,6 +19,8 @@ defmodule WRMWeb.Router do
     get "/", PageController, :index
 
     get "/reps", SearchController, :search
+
+    get "/congress_member", CongressMemberController, :details
   end
 
   # Other scopes may use custom stacks.
