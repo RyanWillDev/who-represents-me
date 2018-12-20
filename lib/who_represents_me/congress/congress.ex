@@ -6,7 +6,32 @@ defmodule WRM.Congress do
   import Ecto.Query, warn: false
   alias WRM.Repo
 
-  alias WRM.Congress.Senator
+  alias WRM.Congress.{HouseMember, Senator}
+
+  def get_member(%{"chamber" => chamber, "name" => name, "ocd_id" => ocd_id} = attrs) do
+    {first_name, last_name} =
+      String.split(name, " ", trim: true)
+      |> (fn
+            [f, _, l] ->
+              {f, l}
+
+            [f, l] ->
+              {f, l}
+          end).()
+
+    case chamber do
+      "house" ->
+        from(m in HouseMember)
+
+      "senate" ->
+        from(m in Senator)
+    end
+    |> where(
+      [m],
+      m.first_name == ^first_name and m.last_name == ^last_name and m.ocd_id == ^ocd_id
+    )
+    |> Repo.one()
+  end
 
   @doc """
   Returns the list of senators.
@@ -101,8 +126,6 @@ defmodule WRM.Congress do
   def change_senator(%Senator{} = senator) do
     Senator.changeset(senator, %{})
   end
-
-  alias WRM.Congress.HouseMember
 
   @doc """
   Returns the list of house_members.
