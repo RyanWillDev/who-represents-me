@@ -4,8 +4,9 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Who Represents Me - Discover your political representatives</title>
+    <title>Who Represents Me - Discover your representatives</title>
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
+    <meta name="description" content="Who Represents Me provides is a central place to discover and get to know your representatives." />
   </head>
   <body class="bg-black font-sans font-normal text-gray-lightest font-semibold">
     <header class="py-4 bg-transparent absolute z-10">

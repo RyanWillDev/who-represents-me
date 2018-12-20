@@ -34,9 +34,9 @@
 
 <section class="flex flex-wrap md:justify-between bg-blue py-10 md:px-12">
   <div class="w-full flex flex-wrap md:block md:w-2/3 px-4 mb-8">
-    <h3 class="mb-6 capitalize text-xl md:text-2xl">Keeping our representatives in check</h3>
+    <h3 class="mb-6 capitalize text-xl md:text-2xl">Keeping your representatives in check</h3>
     <p class="md:pr-6 mb-2">
-      Our Representative Democracy requires active and informed citizens to hold
+      Our representative democracy requires active and informed citizens to hold
       our elected officals accountable.
     </p>
     <p class="mb-2">
