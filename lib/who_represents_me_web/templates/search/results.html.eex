@@ -38,19 +38,19 @@
 
             <%= for phone <- rep["phones"] do %>
               <li class="mb-2">
-                <a href="tel:<%=  phone %>" class="<%= link_class(rep) %> hover:underline py-2 mb-1"><%= phone %></a>
+                <a href="tel:<%=  phone %>" class="hover:underline py-2 mb-1"><%= phone %></a>
               </li>
             <% end %>
 
             <%= for email <- rep["emails"] do %>
               <li class="mb-2">
-                <a href="mailto:<%= email %>" class="<%= link_class(rep) %> hover:underline py-2 mb-1"><%= email %></a>
+                <a href="mailto:<%= email %>" class="hover:underline py-2 mb-1"><%= email %></a>
               </li>
             <% end %>
 
             <%= for url <- rep["urls"] do %>
               <li class="mb-2">
-                <a href="<%= url %>" class="<%= link_class(rep) %> hover:underline py-2 mb-1"><%= url %></a>
+                <a href="<%= url %>" class="hover:underline py-2 mb-1"><%= url %></a>
               </li>
             <% end %>
           </ul>
@@ -76,6 +76,14 @@
               <% end %>
             <% end %>
           </ul>
+        </div>
+
+        <div class="">
+          <%= if rep["details_url"] do %>
+            <div class="h-10">
+              <a class="btn-blue" href="<%= rep["details_url"] %>">Details</a>
+            </div>
+          <% end %>
         </div>
       </li>
     <% end %>
