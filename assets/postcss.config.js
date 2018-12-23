@@ -4,20 +4,21 @@ class TailwindExtractor {
   }
 }
 
-module.exports = {
+module.exports = ({ env }) => ({
   plugins: [
     require('postcss-import'),
     require('tailwindcss')('./tailwind.js'),
-    require('@fullhuman/postcss-purgecss')({
-      extractors: [
-        {
-          extractor: TailwindExtractor,
-          extensions: ['html.eex'],
-        },
-      ],
-      content: ['../lib/**/**/*.html.eex'], // files to extract the selectors from
-      css: ['css/app.css'], // css
-    }),
+    env === 'production' &&
+      require('@fullhuman/postcss-purgecss')({
+        extractors: [
+          {
+            extractor: TailwindExtractor,
+            extensions: ['html.eex'],
+          },
+        ],
+        content: ['../lib/**/**/*.html.eex'], // files to extract the selectors from
+        css: ['css/app.css'], // css
+      }),
     require('autoprefixer'),
   ],
-};
+});

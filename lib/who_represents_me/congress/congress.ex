@@ -8,7 +8,7 @@ defmodule WRM.Congress do
 
   alias WRM.Congress.{HouseMember, Senator}
 
-  def get_member(%{"chamber" => chamber, "name" => name, "ocd_id" => ocd_id} = attrs) do
+  def get_member(%{"chamber" => chamber, "name" => name, "ocd_id" => ocd_id}) do
     {first_name, last_name} =
       String.split(name, " ", trim: true)
       |> (fn

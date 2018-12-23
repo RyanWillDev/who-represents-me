@@ -1,5 +1,5 @@
 {
-    "presets": [
-        "@babel/preset-env"
-    ]
+  // HACK (RW): This might need to be updated to support older browsers. Looking at you IE :)
+  // Excludes transfomr classes so the Custom Elements are not compiled to ES5 functions
+  "presets": [["@babel/preset-env", { "exclude": ["transform-classes"] }]]
 }

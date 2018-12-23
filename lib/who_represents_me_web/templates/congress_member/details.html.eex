@@ -1,5 +1,86 @@
-<section>
+<section class="w-3/4 mx-auto pt-24 bg-black">
+  <voting-record></voting-record>
+  <div class="flex flex-wrap justify-center mb-12 sm:justify-start">
+    <img
+      class="w-32 mb-4 inline-block rounded md:mb-0"
+      src="https://theunitedstates.io/images/congress/225x275/<%= @member.propublica_id %>.jpg"
+      alt="Photo of <%= display_name(@member) %>"
+    />
+    <div class="ml-4 flex-col text-center sm:text-left">
+      <div class="">
+        <h1 class="mb-2"><%= display_name(@member) %></h1>
+        <h2 class="text-sm mb-4"><%= @member.leadership_role || @member.title %></h2>
+      </div>
+      <div class="mb-2">
+        <ul class="flex flex-wrap justify-center sm:justify-start">
+          <%= for %{"type" => type, "id" => id} = social_data <- get_social_links(@member) do %>
+            <li class="mr-2">
+              <a class="py-2" href="<%= social_link(social_data) %>">
+                <%=
+                  case type do
+                    "YouTube" ->
+                      WRMWeb.ComponentsView.render("youtube_icon.html")
+                    "Twitter" ->
+                      WRMWeb.ComponentsView.render("twitter_icon.html")
+                    "Facebook" ->
+                      WRMWeb.ComponentsView.render("facebook_icon.html")
+                    _ ->
+                      nil
+                  end
+                %>
+              </a>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+      <div class="flex justify-center sm:self-end sm:items-end sm:justify-start">
+        <%=
+          case @member.party do
+            "R" ->
+              WRMWeb.ComponentsView.render("republican_icon.html")
+            "D" ->
+              WRMWeb.ComponentsView.render("democrat_icon.html")
+            _ ->
+              "Party Affiliation Unknown"
+          end
+        %>
+      </div>
+    </div>
+  </div>
+
   <div>
-   <h1><%= @member.first_name %></h1>
+    <ul class="flex w-full mb-12 justify-between">
+      <%= for tab <- ["votes", "blah", "blah"] do %>
+        <li class="border-b-2 border-white pb-2"><%= tab %></li>
+      <% end %>
+    </ul>
+
+    <section>
+      <div class="flex flex-wrap text-xl justify-between">
+        <div class="mb-4 w-full sm:w-1/2">
+          <span class="capitalize">Total Votes:</span>
+          <span><%= @member.total_votes %></span>
+        </div>
+
+        <div class="mb-4 sm:text-right w-full sm:w-1/2">
+          <span class="capitalize">Votes with party:</span>
+          <span><%= @member.votes_with_party_pct %>%</span>
+        </div>
+
+        <div class="mb-4 w-full sm:w-1/2">
+          <span class="capitalize">Missed Votes:</span>
+          <span class="text-red"><%= @member.missed_votes_pct %>%</span>
+        </div>
+
+        <div class="mb-4 sm:text-right w-full sm:w-1/2">
+          <span class="capitalize">Total Missed Votes:</span>
+          <%= if Map.has_key?(@member, :missed_votes) do %>
+            <span class="text-red"><%= @member.missed_votes %></span>
+          <% else %>
+            <span class="text-red"><%= number_of_missed_votes(@member) %></span>
+          <% end %>
+        </div>
+      </div>
+    </section>
   </div>
 </section>
