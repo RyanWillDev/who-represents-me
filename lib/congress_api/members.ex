@@ -25,4 +25,9 @@ defmodule CongressApi.Members do
 
     {:ok, senators |> Enum.filter(&(&1["in_office"] == true))}
   end
+
+  def details(member_id) do
+    {:ok, %{"results" => [member]}} = get("/members/#{member_id}.json")
+    {:ok, member}
+  end
 end

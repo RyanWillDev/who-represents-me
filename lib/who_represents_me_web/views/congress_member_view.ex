@@ -37,4 +37,9 @@ defmodule WRMWeb.CongressMemberView do
   def number_of_missed_votes(member) do
     (member.total_votes * (member.missed_votes_pct / 100)) |> Kernel.trunc()
   end
+
+  # JSON Responses
+  def render("member_details.json", %{details: details}) do
+    details
+  end
 end

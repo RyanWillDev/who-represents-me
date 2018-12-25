@@ -1,5 +1,4 @@
 <section class="w-3/4 mx-auto pt-24 bg-black">
-  <voting-record></voting-record>
   <div class="flex flex-wrap justify-center mb-12 sm:justify-start">
     <img
       class="w-32 mb-4 inline-block rounded md:mb-0"
@@ -56,6 +55,8 @@
     </ul>
 
     <section>
+      <congress-member-details propublicaId="<%= @member.propublica_id %>"></congress-member-details>
+
       <div class="flex flex-wrap text-xl justify-between">
         <div class="mb-4 w-full sm:w-1/2">
           <span class="capitalize">Total Votes:</span>
