@@ -11,7 +11,7 @@ import css from '../css/app.css';
 //
 import 'phoenix_html';
 
-import votingRecord from './components/votingRecord';
+import CongressMemberDetails from './components/CongressMemberDetails';
 
 // window.addEventListener('WebComponentsReady', function() {
 //   console.log('running');
@@ -20,7 +20,7 @@ import votingRecord from './components/votingRecord';
 //   });
 // });
 
-[votingRecord].forEach(({ tag, element }) => {
+[CongressMemberDetails].forEach(({ tag, element }) => {
   customElements.define(tag, element);
 });
 

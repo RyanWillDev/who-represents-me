@@ -2,7 +2,7 @@ import { html, LitElement } from '@polymer/lit-element';
 import { until } from 'lit-html/directives/until';
 import http from '../http';
 
-class VotingRecord extends LitElement {
+class CongressMemberDetails extends LitElement {
   constructor() {
     super();
   }
@@ -34,6 +34,6 @@ class VotingRecord extends LitElement {
 }
 
 export default {
-  tag: 'voting-record',
-  element: VotingRecord,
+  tag: 'congress-member-details',
+  element: CongressMemberDetails,
 };
