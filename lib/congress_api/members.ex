@@ -13,7 +13,8 @@ defmodule CongressApi.Members do
        ]
 
   def get(chamber, term) do
-    url = ["", Integer.to_string(term), chamber, "members.json"] |> Enum.join("/")
+    term = if is_number(term), do: Integer.to_string(term), else: term
+    url = ["", term, chamber, "members.json"] |> Enum.join("/")
 
     {:ok, %{"results" => [%{"members" => members}]}} = get(url)
 
@@ -23,8 +24,33 @@ defmodule CongressApi.Members do
      |> Enum.map(&Map.merge(&1, %{"chamber" => chamber, "term" => term}))}
   end
 
-  def details(member_id) do
-    {:ok, %{"results" => [member]}} = get("/members/#{member_id}.json")
+  def get(propublica_id, chamber, term) do
+    member =
+      get(chamber, term) |> elem(1) |> Enum.filter(&(&1["id"] == propublica_id)) |> List.first()
+
     {:ok, member}
+  end
+
+  def details(propublica_id, chamber, term) do
+    votes =
+      Task.async(fn ->
+        get(propublica_id, chamber, term) |> elem(1) |> separate_vote_data()
+      end)
+
+    {:ok, Task.yield_many([votes]) |> CongressApi.format_member_details()}
+  end
+
+  defp separate_vote_data(member) do
+    vote_keys = [
+      "total_votes",
+      "votes_with_party_pct",
+      "missed_votes_pct",
+      "missed_votes",
+      "number_missed_votes"
+    ]
+
+    vote_data = Map.take(member, vote_keys)
+
+    Map.drop(member, vote_keys) |> Map.merge(%{"votes" => vote_data})
   end
 end

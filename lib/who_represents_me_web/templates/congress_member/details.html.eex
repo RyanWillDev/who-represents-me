@@ -1,2 +1,1 @@
-<congress-member-details propublicaId="<%= @member.propublica_id %>"></congress-member-details>
-
+<congress-member-details propublicaId="<%= @member.propublica_id %>" chamber="<%= @member.chamber %>" term="115"></congress-member-details>

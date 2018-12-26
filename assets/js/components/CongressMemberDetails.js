@@ -10,7 +10,7 @@ class CongressMemberDetails extends LitElement {
   constructor() {
     console.log(css);
     super();
-    this.placeholder = 'Loading';
+    this.currentTab = 'votes';
   }
 
   createRenderRoot() {
@@ -19,7 +19,9 @@ class CongressMemberDetails extends LitElement {
 
   static get properties() {
     return {
+      chamber: String,
       propublicaId: String,
+      term: Number,
     };
   }
 
@@ -62,15 +64,15 @@ class CongressMemberDetails extends LitElement {
 
   partyIcon(member) {
     return {
-      R: Republican,
-      D: Democrat,
-    }[member.current_party]();
+      R: Republican(),
+      D: Democrat(),
+    }[member.party];
   }
 
   tabContents(member) {
-    return html`
-      ${VotingRecord()}
-    `;
+    return {
+      votes: VotingRecord(member.votes),
+    }[this.currentTab];
   }
 
   template(member) {
@@ -112,15 +114,19 @@ class CongressMemberDetails extends LitElement {
               )
             }
           </ul>
+          <section>${this.tabContents(member)}</section>
         </div>
       </section>
     `;
-    // <!-- <section>${this.tabContents(member)}</section> -->
   }
 
   connectedCallback() {
     this.content = http
-      .get(`congress_members/${this.propublicaId}/details`)
+      .get(
+        `congress_members/details?chamber=${this.chamber}&propublica_id=${
+          this.propublicaId
+        }&term=${this.term}`
+      )
       .then(res => console.log(res.data) || res.data)
       .then(this.template.bind(this));
   }

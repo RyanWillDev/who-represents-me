@@ -10,8 +10,12 @@ defmodule WRMWeb.CongressMemberController do
     end
   end
 
-  def member_details(conn, %{"member_id" => memeber_id}) do
-    with {:ok, details} <- CongressApi.Members.details(memeber_id) do
+  def member_details(conn, %{
+        "propublica_id" => propublica_id,
+        "chamber" => chamber,
+        "term" => term
+      }) do
+    with {:ok, details} <- CongressApi.Members.details(propublica_id, chamber, term) do
       render(conn, "member_details.json", details: details)
     else
       error ->

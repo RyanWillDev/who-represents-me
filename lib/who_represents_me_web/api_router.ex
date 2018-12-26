@@ -8,6 +8,6 @@ defmodule WRMWeb.ApiRouter do
   scope "/", WRMWeb do
     pipe_through :api
 
-    get("congress_members/:member_id/details", CongressMemberController, :member_details)
+    get("congress_members/details", CongressMemberController, :member_details)
   end
 end
