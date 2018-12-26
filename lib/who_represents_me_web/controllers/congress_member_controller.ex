@@ -5,8 +5,6 @@ defmodule WRMWeb.CongressMemberController do
   def details(conn, params) do
     with member <- WRM.Congress.get_member(params),
          true <- not is_nil(member) do
-      # require IEx
-      # IEx.pry()
       render(conn, "details.html", member: member)
       # TODO (RW): Need to add an else case and handle the error here
     end
@@ -17,8 +15,6 @@ defmodule WRMWeb.CongressMemberController do
       render(conn, "member_details.json", details: details)
     else
       error ->
-        require IEx
-        IEx.pry()
         error
     end
   end

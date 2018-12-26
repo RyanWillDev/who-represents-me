@@ -12,16 +12,12 @@ import css from '../css/app.css';
 import 'phoenix_html';
 
 import CongressMemberDetails from './components/CongressMemberDetails';
+// import VotingRecord from './components/VotingRecord';
 
-// window.addEventListener('WebComponentsReady', function() {
-//   console.log('running');
-//   [votingRecord].forEach(({ tag, element }) => {
-//     customElements.define(tag, element);
-//   });
-// });
-
-[CongressMemberDetails].forEach(({ tag, element }) => {
-  customElements.define(tag, element);
+window.addEventListener('WebComponentsReady', function() {
+  [CongressMemberDetails].forEach(({ tag, element }) => {
+    customElements.define(tag, element);
+  });
 });
 
 // Import local files
