@@ -12,18 +12,15 @@ defmodule CongressApi.Members do
          {"X-API-Key", @key}
        ]
 
-  def house_members_by_term(term) do
-    {:ok, %{"results" => [%{"members" => members}]}} =
-      get("/" <> Integer.to_string(term) <> "/house/members.json")
+  def get(chamber, term) do
+    url = ["", Integer.to_string(term), chamber, "members.json"] |> Enum.join("/")
 
-    {:ok, members |> Enum.filter(&(&1["in_office"] == true))}
-  end
+    {:ok, %{"results" => [%{"members" => members}]}} = get(url)
 
-  def senators_by_term(term) do
-    {:ok, %{"results" => [%{"members" => senators}]}} =
-      get("/" <> Integer.to_string(term) <> "/senate/members.json")
-
-    {:ok, senators |> Enum.filter(&(&1["in_office"] == true))}
+    {:ok,
+     members
+     |> Enum.filter(&(&1["in_office"] == true))
+     |> Enum.map(&Map.merge(&1, %{"chamber" => chamber, "term" => term}))}
   end
 
   def details(member_id) do

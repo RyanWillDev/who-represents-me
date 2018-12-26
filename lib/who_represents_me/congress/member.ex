@@ -1,9 +1,11 @@
-defmodule WRM.Congress.HouseMember do
+defmodule WRM.Congress.Member do
   use Ecto.Schema
   import Ecto.Changeset
 
-  schema "house_members" do
+  schema "members" do
     field :cspan_id, :string
+    field :term, :integer
+    field :chamber, :string
     field :date_of_birth, :date
     field :office, :string
     field :phone, :string
@@ -15,12 +17,10 @@ defmodule WRM.Congress.HouseMember do
     field :govtrack_id, :string
     field :next_election, :string
     field :short_title, :string
-    field :senority, :string
-    field :total_votes, :integer
+    field :seniority, :string
     field :contact_form, :string
     field :last_name, :string
     field :last_updated, :string
-    field :votes_with_party_pct, :float
     field :ocd_id, :string
     field :fax, :string
     field :icpsr_id, :string
@@ -37,22 +37,24 @@ defmodule WRM.Congress.HouseMember do
     field :gender, :string
     field :party, :string
     field :title, :string
-    field :total_present, :integer
     field :suffix, :string
     field :middle_name, :string
     field :dw_nominate, :float
-    field :missed_votes_pct, :float
     field :state, :string
     field :at_large, :boolean, default: false
     field :google_entity_id, :string
     field :leadership_role, :string
+    field :lis_id, :string
+    field :senate_class, :string
+    field :state_rank, :string
+    field :missed_votes, :integer
 
     timestamps()
   end
 
   @doc false
-  def changeset(house_member, attrs) do
-    house_member
+  def changeset(member, attrs) do
+    member
     |> cast(attrs, [
       :first_name,
       :title,
@@ -71,23 +73,20 @@ defmodule WRM.Congress.HouseMember do
       :youtube_account,
       :icpsr_id,
       :ideal_point,
-      :total_votes,
       :api_uri,
       :short_title,
       :suffix,
       :at_large,
       :dw_nominate,
-      :missed_votes_pct,
       :govtrack_id,
       :party,
       :next_election,
       :state,
       :twitter_account,
-      :senority,
+      :seniority,
       :fec_candidate_id,
       :office,
       :votesmart_id,
-      :votes_with_party_pct,
       :cspan_id,
       :url,
       :rss_url,
@@ -95,8 +94,12 @@ defmodule WRM.Congress.HouseMember do
       :in_office,
       :gender,
       :leadership_role,
-      :total_present,
-      :contact_form
+      :contact_form,
+      :senate_class,
+      :state_rank,
+      :missed_votes,
+      :term,
+      :chamber
     ])
     |> validate_required([])
   end
