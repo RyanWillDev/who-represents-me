@@ -10,7 +10,9 @@ class CongressMemberDetails extends LitElement {
   constructor() {
     console.log(css);
     super();
+
     this.currentTab = 'votes';
+    this.data = null;
   }
 
   createRenderRoot() {
@@ -22,7 +24,14 @@ class CongressMemberDetails extends LitElement {
       chamber: String,
       propublicaId: String,
       term: Number,
+      currentTab: String,
+      data: Object,
     };
+  }
+
+  changeTab(tab) {
+    this.currentTab = tab;
+    console.log(this.currentTab);
   }
 
   displayName(member) {
@@ -72,70 +81,89 @@ class CongressMemberDetails extends LitElement {
   tabContents(member) {
     return {
       votes: VotingRecord(member.votes),
+      bills: html`
+        <h1>Working on it</h1>
+      `,
+      finances: html`
+        <h1>Working on it</h1>
+      `,
     }[this.currentTab];
   }
 
   template(member) {
     return html`
-      <section class="w-3/4 mx-auto pt-24 bg-black">
-        <div class="flex flex-wrap justify-center mb-12 sm:justify-start">
-          <img class="w-32 mb-4 inline-block rounded md:mb-0"
-          src=https://theunitedstates.io/images/congress/225x275/${
-            this.propublicaId
-          }.jpg
-          alt="Photo of ${this.displayName(member)}" />
-          <div class="ml-4 flex-col text-center sm:text-left">
-            <div class="">
-              <h1 class="mb-2">${this.displayName(member)}</h1>
-              <h2 class="text-sm mb-4">
-                ${member.leadership_role || member.title}
-              </h2>
-            </div>
-            <div class="mb-2">
-              <ul class="flex flex-wrap justify-center sm:justify-start">
-                ${this.socialLinks(member)}
-              </ul>
-            </div>
-            <div
-              class="flex justify-center sm:self-end sm:items-end sm:justify-start"
-            >
-              ${this.partyIcon(member)}
-            </div>
+      <div class="flex flex-wrap justify-center mb-12 sm:justify-start">
+        <img class="w-32 mb-4 inline-block rounded md:mb-0"
+        src=https://theunitedstates.io/images/congress/225x275/${
+          this.propublicaId
+        }.jpg
+        alt="Photo of ${this.displayName(member)}" />
+        <div class="ml-4 flex-col text-center sm:text-left">
+          <div class="">
+            <h1 class="mb-2">${this.displayName(member)}</h1>
+            <h2 class="text-sm mb-4">
+              ${member.leadership_role || member.title}
+            </h2>
+          </div>
+          <div class="mb-2">
+            <ul class="flex flex-wrap justify-center sm:justify-start">
+              ${this.socialLinks(member)}
+            </ul>
+          </div>
+          <div
+            class="flex justify-center sm:self-end sm:items-end sm:justify-start"
+          >
+            ${this.partyIcon(member)}
           </div>
         </div>
-        <div>
-          <ul class="flex w-full mb-12 justify-between">
-            ${
-              ['votes', 'blah', 'blah'].map(
-                tab =>
-                  html`
-                    <li class="border-b-2 border-white pb-2">${tab}</li>
-                  `
-              )
-            }
-          </ul>
-          <section>${this.tabContents(member)}</section>
-        </div>
-      </section>
+      </div>
+      <div>
+        <ul class="flex w-full mb-12 justify-between">
+          ${
+            ['votes', 'bills', 'finances'].map(
+              tab =>
+                html`
+                  <li
+                    class="capitalize cursor-pointer ${
+                      styleActiveTab(this.currentTab, tab)
+                    }  pb-2"
+                    @click=${this.changeTab.bind(this, tab)}
+                  >
+                    ${tab}
+                  </li>
+                `
+            )
+          }
+        </ul>
+        <section>${this.tabContents(member)}</section>
+      </div>
     `;
   }
 
   connectedCallback() {
-    this.content = http
+    http
       .get(
         `congress_members/details?chamber=${this.chamber}&propublica_id=${
           this.propublicaId
         }&term=${this.term}`
       )
-      .then(res => console.log(res.data) || res.data)
-      .then(this.template.bind(this));
+      // TODO (RW): Remove console.log
+      .then(res => console.log(res.data) || res)
+      .then(res => (this.data = res.data));
   }
 
   render() {
+    // TODO (RW): Add skeleton content placeholder when loading
     return html`
-      ${until(this.content, 'Loading!!!')}
+      <section class="w-3/4 mx-auto pt-24 bg-black">
+        ${this.data ? this.template(this.data) : 'LOADING!!!!'}
+      </section>
     `;
   }
+}
+
+function styleActiveTab(activeTab, tab) {
+  return activeTab === tab ? 'border-b-2 border-white' : '';
 }
 
 export default {
