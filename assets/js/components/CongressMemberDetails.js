@@ -2,13 +2,12 @@ import { html, LitElement } from '@polymer/lit-element';
 import { until } from 'lit-html/directives/until';
 import http from '../http';
 import VotingRecord from './VotingRecord';
+import Bills from './Bills';
 import * as SocialIcons from './SocialIcons';
 import { Democrat, Republican } from './PartyIcons';
-import css from '../../css/app.css';
 
 class CongressMemberDetails extends LitElement {
   constructor() {
-    console.log(css);
     super();
 
     this.currentTab = 'votes';
@@ -31,7 +30,6 @@ class CongressMemberDetails extends LitElement {
 
   changeTab(tab) {
     this.currentTab = tab;
-    console.log(this.currentTab);
   }
 
   displayName(member) {
@@ -81,9 +79,7 @@ class CongressMemberDetails extends LitElement {
   tabContents(member) {
     return {
       votes: VotingRecord(member.votes),
-      bills: html`
-        <h1>Working on it</h1>
-      `,
+      bills: Bills(member.bills),
       finances: html`
         <h1>Working on it</h1>
       `,
