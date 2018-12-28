@@ -93,7 +93,7 @@ class CongressMemberDetails extends LitElement {
   template(member) {
     return html`
       <div class="flex flex-wrap justify-center mb-12 sm:justify-start">
-        <img class="w-32 mb-4 inline-block rounded md:mb-0"
+        <img class="w-32 h-full mb-4 inline-block rounded md:mb-0"
         src=https://theunitedstates.io/images/congress/225x275/${
           this.propublicaId
         }.jpg
@@ -118,15 +118,15 @@ class CongressMemberDetails extends LitElement {
         </div>
       </div>
       <div>
-        <ul class="flex w-full mb-12 justify-between">
+        <ul class="flex mb-12">
           ${
-            ['votes', 'bills', 'finances'].map(
+            ['votes', 'bills' /* 'finances' */].map(
               tab =>
                 html`
                   <li
                     class="capitalize cursor-pointer ${
                       styleActiveTab(this.currentTab, tab)
-                    }  pb-2"
+                    } border-b-2 border-transparent text-2xl pb-2 mr-4"
                     @click=${this.changeTab.bind(this, tab)}
                   >
                     ${tab}
@@ -155,7 +155,7 @@ class CongressMemberDetails extends LitElement {
   render() {
     // TODO (RW): Add skeleton content placeholder when loading
     return html`
-      <section class="w-3/4 mx-auto pt-24 bg-black">
+      <section class="w-3/4 mx-auto mb-32 pt-24 bg-black">
         ${this.data ? this.template(this.data) : 'LOADING!!!!'}
       </section>
     `;
@@ -163,7 +163,7 @@ class CongressMemberDetails extends LitElement {
 }
 
 function styleActiveTab(activeTab, tab) {
-  return activeTab === tab ? 'border-b-2 border-white' : '';
+  return activeTab === tab ? 'border-b-2 border-white' : 'opacity-75';
 }
 
 export default {

@@ -32,7 +32,7 @@ export default votes =>
               p => html`
                 <li class="mb-4 bg-white py-8 px-4 rounded flex flex-wrap">
                   <div>
-                    <div class="text-base mb-2">
+                    <div class="text-base mb-4">
                       <h3>
                         <span>${p.date}</span> <span>${p.bill.number}</span>
                       </h3>
