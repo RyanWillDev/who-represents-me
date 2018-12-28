@@ -14,8 +14,9 @@ defmodule CongressApi.Votes do
   def member_positions(propublica_id) do
     {:ok, result} = get("/members/#{propublica_id}/votes.json") |> CongressApi.get_result()
 
-    (fn r ->
-       r |> List.first() |> Map.get("votes", [])
-     end).(result)
+    {:ok,
+     (fn r ->
+        r |> List.first() |> Map.get("votes", [])
+      end).(result)}
   end
 end

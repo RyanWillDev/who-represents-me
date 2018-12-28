@@ -38,8 +38,8 @@ defmodule WRMWeb.CongressMemberController do
            votes = Map.merge(%{"positions" => votes}, votes_data)
 
            Map.drop(member, vote_keys) |> Map.merge(%{"votes" => votes})
-         end).(votes, elem(member, 1))
-        |> Map.merge(%{"bills" => bills})
+         end).(elem(votes, 1), elem(member, 1))
+        |> Map.merge(%{"bills" => elem(bills, 1)})
 
       render(conn, "member_details.json", details: details)
     else

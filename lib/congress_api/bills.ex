@@ -12,8 +12,10 @@ defmodule CongressApi.Bills do
        ]
 
   def for_member(propublica_id) do
-    url = ["", "members", propublica_id, "bills/introduced.json"] |> Enum.join("/")
-    {:ok, [%{"bills" => bills}]} = get(url) |> CongressApi.get_result()
-    bills
+    {:ok, [%{"bills" => bills}]} =
+      get("/members/#{propublica_id}/bills/introduced.json")
+      |> CongressApi.get_result()
+
+    {:ok, bills}
   end
 end
