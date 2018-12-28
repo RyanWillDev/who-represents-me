@@ -12,7 +12,7 @@ defmodule CongressApi.Members do
          {"X-API-Key", @key}
        ]
 
-  def get(chamber, term) do
+  def list(chamber, term) do
     term = if is_number(term), do: Integer.to_string(term), else: term
     url = ["", term, chamber, "members.json"] |> Enum.join("/")
 
@@ -24,9 +24,9 @@ defmodule CongressApi.Members do
      |> Enum.map(&Map.merge(&1, %{"chamber" => chamber, "term" => term}))}
   end
 
-  def get(propublica_id, chamber, term) do
+  def get_one(propublica_id, chamber, term) do
     member =
-      get(chamber, term) |> elem(1) |> Enum.filter(&(&1["id"] == propublica_id)) |> List.first()
+      list(chamber, term) |> elem(1) |> Enum.filter(&(&1["id"] == propublica_id)) |> List.first()
 
     {:ok, member}
   end
@@ -34,10 +34,23 @@ defmodule CongressApi.Members do
   def details(propublica_id, chamber, term) do
     votes =
       Task.async(fn ->
-        get(propublica_id, chamber, term) |> elem(1) |> separate_vote_data()
+        {:ok, member_data} = get_one(propublica_id, chamber, term)
+        member_data = separate_vote_data(member_data)
+        {:ok, vote_positions} = vote_positions(propublica_id)
+
+        vote_positions =
+          (fn vp ->
+             vp |> List.first() |> Map.get("votes", [])
+           end).(vote_positions)
+
+        put_in(member_data, ["votes", "positions"], vote_positions)
       end)
 
     {:ok, Task.yield_many([votes]) |> CongressApi.format_member_details()}
+  end
+
+  def vote_positions(propublica_id) do
+    get("/members/#{propublica_id}/votes.json") |> CongressApi.get_result()
   end
 
   defp separate_vote_data(member) do

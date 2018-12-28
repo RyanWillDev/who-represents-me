@@ -3,6 +3,10 @@ defmodule CongressApi do
     {:ok, body}
   end
 
+  def get_result({_, %{"status" => "OK", "results" => results}}) do
+    {:ok, results}
+  end
+
   def get_result({_, %{"status" => "404"}}) do
     {:error, :not_found}
   end
