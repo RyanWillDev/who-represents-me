@@ -1,5 +1,6 @@
-import { html } from '@polymer/lit-element';
 import { Democrat, Republican } from './PartyIcons';
+import { format } from 'date-fns';
+import { html } from '@polymer/lit-element';
 
 export default bills => html`
   <h2 class="mb-4 capitalize">Bills Sponsored</h2>
@@ -8,12 +9,14 @@ export default bills => html`
       bills.map(
         b => html`
           <li class="mb-4 bg-white py-8 px-4 rounded flex flex-wrap">
-            <div class="w-full mb-4">
+            <div class="w-full mb-6">
               <div>
                 <h3 class="mb-2">${b.short_title}</h3>
-                <div class="text-sm">
+                <div class="text-sm mb-2">
                   <span class="mb-2 inline-block">${b.number}</span>
-                  <span class="mb-2 inline-block">${b.introduced_date}</span>
+                  <span class="mb-2 inline-block"
+                    >${format(b.introduced_date, 'MMMM d, y')}</span
+                  >
                 </div>
                 <p class="text-sm">${b.title}</p>
               </div>
@@ -61,6 +64,9 @@ export default bills => html`
                   </div>
                   <div class="mb-4 w-full md:w-1/2">
                     <h4 class="mb-2">Latest Action</h4>
+                    <p class="text-sm">
+                      ${format(b.latest_major_action_date, 'MMMM d, y')}
+                    </p>
                     <p class="text-sm">${b.latest_major_action}</p>
                   </div>
                 </div>

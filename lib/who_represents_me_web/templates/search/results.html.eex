@@ -1,4 +1,4 @@
-<section class="pt-24 px-4 sm:px-16">
+<section class="pt-24 px-4 max-w-xl mx-auto sm:px-16">
   <h1 class="mb-16 text-base w-full">Representatives for <%= @address %></h1>
   <ul class="text-black mb-16">
     <%= for rep <- @reps do %>

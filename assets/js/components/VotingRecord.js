@@ -1,8 +1,12 @@
 import { html } from '@polymer/lit-element';
+import { format } from 'date-fns';
+
 export default votes =>
   html`
     <div>
-      <div class="flex flex-wrap text-xl justify-between mb-8">
+      <div
+        class="flex flex-wrap text-xl justify-center md:justify-between mb-8"
+      >
         <div class="mb-4 w-full sm:w-1/2">
           <span class="capitalize">Total Votes:</span>
           <span>${votes.total_votes}</span>
@@ -34,7 +38,10 @@ export default votes =>
                   <div>
                     <div class="text-base mb-4">
                       <h3>
-                        <span>${p.date}</span> <span>${p.bill.number}</span>
+                        <span class="block mb-1">${p.bill.number}</span>
+                        <span class="text-sm"
+                          >${format(p.date, 'MMMM d, y')}</span
+                        >
                       </h3>
                     </div>
                     <p class="text-sm block mb-4">${p.description}</p>

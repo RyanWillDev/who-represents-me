@@ -1,10 +1,9 @@
-import { html, LitElement } from '@polymer/lit-element';
-import { until } from 'lit-html/directives/until';
-import http from '../http';
-import VotingRecord from './VotingRecord';
-import Bills from './Bills';
 import * as SocialIcons from './SocialIcons';
+import Bills from './Bills';
+import VotingRecord from './VotingRecord';
+import http from '../http';
 import { Democrat, Republican } from './PartyIcons';
+import { html, LitElement } from '@polymer/lit-element';
 
 class CongressMemberDetails extends LitElement {
   constructor() {
@@ -114,7 +113,7 @@ class CongressMemberDetails extends LitElement {
         </div>
       </div>
       <div>
-        <ul class="flex mb-12">
+        <ul class="flex mb-12 justify-center sm:justify-start">
           ${
             ['votes', 'bills' /* 'finances' */].map(
               tab =>
@@ -151,7 +150,7 @@ class CongressMemberDetails extends LitElement {
   render() {
     // TODO (RW): Add skeleton content placeholder when loading
     return html`
-      <section class="w-3/4 mx-auto mb-32 pt-24 bg-black">
+      <section class="w-3/4 max-w-xl  mx-auto mb-32 pt-24 bg-black">
         ${this.data ? this.template(this.data) : 'LOADING!!!!'}
       </section>
     `;
