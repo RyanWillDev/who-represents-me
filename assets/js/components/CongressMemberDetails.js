@@ -49,12 +49,12 @@ class CongressMemberDetails extends LitElement {
       {
         id: member.facebook_account,
         type: 'Facebook',
-        link: `https://twitter.com/${member.facebook_account}`,
+        link: `https://facebook.com/${member.facebook_account}`,
       },
       {
         id: member.youtube_account,
         type: 'YouTube',
-        link: `https://twitter.com/${member.youtube_account}`,
+        link: `https://youtube.com/${member.youtube_account}`,
       },
     ]
       .filter(socialData => socialData.id != null)
@@ -124,7 +124,7 @@ class CongressMemberDetails extends LitElement {
                       styleActiveTab(this.currentTab, tab)
                         .concat(' ')
                         .concat(i !== 1 ? 'mr-4' : '')
-                    } border-b-2 border-transparent text-2xl pb-2 mr-4"
+                    } border-b-2 border-transparent text-2xl pb-2"
                     @click=${this.changeTab.bind(this, tab)}
                   >
                     ${tab}
