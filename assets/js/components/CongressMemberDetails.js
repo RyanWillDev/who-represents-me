@@ -117,11 +117,13 @@ class CongressMemberDetails extends LitElement {
         <ul class="flex mb-12 justify-center sm:justify-start">
           ${
             ['votes', 'bills' /* 'finances' */].map(
-              tab =>
+              (tab, i) =>
                 html`
                   <li
                     class="capitalize cursor-pointer ${
                       styleActiveTab(this.currentTab, tab)
+                        .concat(' ')
+                        .concat(i !== 1 ? 'mr-4' : '')
                     } border-b-2 border-transparent text-2xl pb-2 mr-4"
                     @click=${this.changeTab.bind(this, tab)}
                   >
@@ -143,13 +145,11 @@ class CongressMemberDetails extends LitElement {
           this.propublicaId
         }&term=${this.term}`
       )
-      // TODO (RW): Remove console.log
-      .then(res => console.log(res.data) || res)
+      .then(res => res)
       .then(res => (this.data = res.data));
   }
 
   render() {
-    // TODO (RW): Add skeleton content placeholder when loading
     return html`
       <section
         class="w-3/4 max-w-xl h-full mx-auto mb-32bg-black ${
