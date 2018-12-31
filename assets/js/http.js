@@ -1,3 +1,3 @@
 import axios from 'axios';
 
-export default axios.create({ baseURL: 'https://who-reps.me/api/' });
+export default axios.create({ baseURL: 'https://www.who-reps.me/api/' });
