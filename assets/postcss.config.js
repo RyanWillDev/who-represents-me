@@ -16,7 +16,7 @@ module.exports = ({ env }) => ({
             extensions: ['html.eex'],
           },
         ],
-        content: ['../lib/**/**/*.html.eex'], // files to extract the selectors from
+        content: ['../lib/**/**/*.html.eex', './components/*.js'], // files to extract the selectors from
         css: ['css/app.css'], // css
       }),
     require('autoprefixer'),
