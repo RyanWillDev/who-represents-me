@@ -12,10 +12,10 @@ import css from '../css/app.css';
 import 'phoenix_html';
 
 import CongressMemberDetails from './components/CongressMemberDetails';
-// import VotingRecord from './components/VotingRecord';
+import LoadingPulse from './components/LoadingPulse';
 
 window.addEventListener('WebComponentsReady', function() {
-  [CongressMemberDetails].forEach(({ tag, element }) => {
+  [CongressMemberDetails, LoadingPulse].forEach(({ tag, element }) => {
     customElements.define(tag, element);
   });
 });

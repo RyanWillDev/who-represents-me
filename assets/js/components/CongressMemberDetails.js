@@ -4,6 +4,7 @@ import VotingRecord from './VotingRecord';
 import http from '../http';
 import { Democrat, Republican } from './PartyIcons';
 import { html, LitElement } from '@polymer/lit-element';
+import CongressMemberPlaceholder from './CongressMemberPlaceholder';
 
 class CongressMemberDetails extends LitElement {
   constructor() {
@@ -150,8 +151,20 @@ class CongressMemberDetails extends LitElement {
   render() {
     // TODO (RW): Add skeleton content placeholder when loading
     return html`
-      <section class="w-3/4 max-w-xl  mx-auto mb-32 pt-24 bg-black">
-        ${this.data ? this.template(this.data) : 'LOADING!!!!'}
+      <section
+        class="w-3/4 max-w-xl h-full mx-auto mb-32bg-black ${
+          this.data && 'pt-24'
+        }"
+      >
+        ${
+          this.data
+            ? this.template(this.data)
+            : html`
+                <div class="h-screen flex justify-center items-center">
+                  <loading-pulse></loading-pulse>
+                </div>
+              `
+        }
       </section>
     `;
   }
