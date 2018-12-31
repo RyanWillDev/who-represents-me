@@ -1,7 +1,7 @@
 // We need to import the CSS so that webpack will load it.
 // The MiniCssExtractPlugin is used to separate it out into
 // its own CSS file.
-import css from "../css/app.css"
+import css from '../css/app.css';
 
 // webpack automatically bundles all modules in your
 // entry points. Those entry points can be configured
@@ -9,7 +9,16 @@ import css from "../css/app.css"
 //
 // Import dependencies
 //
-import "phoenix_html"
+import 'phoenix_html';
+
+import CongressMemberDetails from './components/CongressMemberDetails';
+import LoadingPulse from './components/LoadingPulse';
+
+window.addEventListener('WebComponentsReady', function() {
+  [CongressMemberDetails, LoadingPulse].forEach(({ tag, element }) => {
+    customElements.define(tag, element);
+  });
+});
 
 // Import local files
 //

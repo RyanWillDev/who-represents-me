@@ -9,9 +9,7 @@ defmodule WRMWeb.Router do
     plug :put_secure_browser_headers
   end
 
-  pipeline :api do
-    plug :accepts, ["json"]
-  end
+  forward "/api", WRMWeb.ApiRouter
 
   scope "/", WRMWeb do
     pipe_through :browser
@@ -19,6 +17,8 @@ defmodule WRMWeb.Router do
     get "/", PageController, :index
 
     get "/reps", SearchController, :search
+
+    get "/congress_member", CongressMemberController, :details
   end
 
   # Other scopes may use custom stacks.

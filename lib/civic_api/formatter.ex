@@ -18,6 +18,7 @@ defmodule CivicApi.Formatter do
           offices_by_official_index[to_string(index)]
           |> parse_division_id()
       })
+      |> add_details_link()
     end)
     |> Enum.map(&format_rep_list_data(&1, ["phones", "emails", "urls"]))
   end
@@ -59,5 +60,39 @@ defmodule CivicApi.Formatter do
 
     Map.merge(rep, %{current => list_data})
     |> format_rep_list_data(rest)
+  end
+
+  @doc """
+    creates and adds a link to be used to get the details of the official
+    if the official is a member of congress on the federal level
+  """
+  defp add_details_link(
+         %{
+           "office" => %{
+             "levels" => ["country"],
+             "roles" => [role | _],
+             "divisionId" => division_id
+           },
+           "name" => name
+         } = official
+       )
+       when role in ["legislatorUpperBody", "legislatorLowerBody"] do
+    # The official is a member of Congress at the federal level not state
+    chamber =
+      case role do
+        "legislatorUpperBody" ->
+          "senate"
+
+        "legislatorLowerBody" ->
+          "house"
+      end
+
+    query = %{name: name, ocd_id: division_id, chamber: chamber} |> URI.encode_query()
+    url = "/congress_member?" <> query
+    Map.merge(official, %{"details_url" => url})
+  end
+
+  defp add_details_link(official) do
+    official
   end
 end
