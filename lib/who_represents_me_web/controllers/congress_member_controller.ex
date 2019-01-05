@@ -24,6 +24,9 @@ defmodule WRMWeb.CongressMemberController do
     ]
 
     with [{_, {:ok, votes}}, {_, {:ok, member}}, {_, {:ok, bills}}] <- Task.yield_many(tasks) do
+      require IEx
+      IEx.pry()
+
       details =
         (fn votes, member ->
            vote_keys = [

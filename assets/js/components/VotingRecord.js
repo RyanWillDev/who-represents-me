@@ -4,27 +4,28 @@ import { format } from 'date-fns';
 export default votes =>
   html`
     <div>
+      <h2 class="capitalize mb-5">Stats for current term</h2>
       <div
         class="flex flex-wrap text-xl justify-center md:justify-between mb-8"
       >
         <div class="mb-4 w-full sm:w-1/2">
           <span class="capitalize">Total Votes:</span>
-          <span>${votes.total_votes}</span>
+          <span>${votes.total_votes || 0}</span>
         </div>
 
         <div class="mb-4 sm:text-right w-full sm:w-1/2">
           <span class="capitalize">Votes with party:</span>
-          <span>${votes.votes_with_party_pct}%</span>
+          <span>${votes.votes_with_party_pct || 0}%</span>
         </div>
 
         <div class="mb-4 w-full sm:w-1/2">
           <span class="capitalize">Missed Votes:</span>
-          <span class="text-red">${votes.missed_votes_pct}%</span>
+          <span class="text-red">${votes.missed_votes_pct || 0}%</span>
         </div>
 
         <div class="mb-4 sm:text-right w-full sm:w-1/2">
           <span class="capitalize">Total Missed Votes:</span>
-          <span class="text-red">${numberOfMissedVotes(votes)}</span>
+          <span class="text-red">${numberOfMissedVotes(votes) || 0}</span>
         </div>
       </div>
 

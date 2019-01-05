@@ -19,13 +19,20 @@ defmodule WRM.Congress do
               {f, l}
           end).()
 
-    from(m in Member)
-    |> where(
-      [m],
-      m.first_name == ^first_name and m.last_name == ^last_name and m.ocd_id == ^ocd_id and
-        m.chamber == ^chamber
-    )
-    |> Repo.one()
+    query =
+      from(m in Member)
+      |> where(
+        [m],
+        m.first_name == ^first_name and m.last_name == ^last_name and m.ocd_id == ^ocd_id and
+          m.chamber == ^chamber
+      )
+
+    try do
+      query |> Repo.one()
+    rescue
+      _ in Ecto.MultipleResultsError ->
+        query |> Repo.all() |> Enum.reduce(&Map.merge/2)
+    end
   end
 
   @doc """

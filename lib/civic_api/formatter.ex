@@ -77,7 +77,6 @@ defmodule CivicApi.Formatter do
          } = official
        )
        when role in ["legislatorUpperBody", "legislatorLowerBody"] do
-    # The official is a member of Congress at the federal level not state
     chamber =
       case role do
         "legislatorUpperBody" ->
@@ -87,9 +86,17 @@ defmodule CivicApi.Formatter do
           "house"
       end
 
-    query = %{name: name, ocd_id: division_id, chamber: chamber} |> URI.encode_query()
-    url = "/congress_member?" <> query
-    Map.merge(official, %{"details_url" => url})
+    case WRM.Congress.get_member(%{"chamber" => chamber, "name" => name, "ocd_id" => division_id}) do
+      %WRM.Congress.Member{} ->
+        # The official is a member of Congress at the federal level not state
+
+        query = %{name: name, ocd_id: division_id, chamber: chamber} |> URI.encode_query()
+        url = "/congress_member?" <> query
+        Map.merge(official, %{"details_url" => url})
+
+      _ ->
+        official
+    end
   end
 
   defp add_details_link(official) do
